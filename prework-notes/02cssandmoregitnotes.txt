@@ -1,0 +1,212 @@
+NOTES -----
+
+CSS --
+-- CSS tags order of importance:
+    -- "id" is top priority and will override anything.
+    -- then it's "class"
+    -- then the tag itself.
+
+-- You can manipulate only the "li" or "h5" elements in
+    a certain "class" by notating like this:
+        .classname element {
+            styling here
+        }
+
+-- Elements can have more than one class name by adding
+    them in the quotes separated by a space:
+    <p class="class1 class2">
+
+-- Classes can be reusable, while "id" can only be used
+    once.
+
+-- CSS declarations consist of a "property" and a "value".
+    -- ex. property = color, value = blue.
+    -- separated by a ":" colon
+    -- always ends with a ";" semi-colon
+
+-- When setting typefaces on a web page, keep the following points in mind:
+    -- 1. The font specified in a stylesheet must be installed on a user's
+        computer in order for that font to display when a user visits the page.
+    -- 2. The default typeface for all HTML elements is "Times New Roman".
+    -- 3. It's a good practice to limit the number of typefaces used on a web
+        page to 2 or 3. This helps the page load faster and is usually a good
+        design decision.
+    -- 4. When the name of the fontface contains more than one word, it's
+        best practice to enclose it in "" quotation marks.
+
+-- THE BOX MODEL
+    -- The box model comprises the set of properties which define parts of
+        an element that take up space on a web page. Includes:
+        -- 1. Width and height -- specifies the width and height of the
+            content area
+        -- 2. Padding -- specifies the amount of space between the content
+            area and the border
+        -- 3. Border -- specifies the thickness and style of the border
+            surrounding the content area and Padding
+        -- 4. Margin -- specifies the amount of space between the border and
+            the outside edge of the element.
+
+-- Borders --
+    -- Attributes are width, style, and color.
+        -- 1. Width -- The thickness of the border. Can be set using a pixel
+                amount, but also "thin", "medium", or "thick".
+        -- 2. Style -- The desing of the border. There are 10 different styles
+                such as "none", "dotted", and "solid".
+        -- 3. Color -- The color of the border. Web browsers can render colors
+                using a number of methods, including 140 built-in color keywords.
+
+        -- format -- border: width style color;
+
+-- Padding in a single line is as follows -- padding: top right bottom left
+    -- or padding: topbottom leftright (if those values will be the same)
+
+-- Margin Auto --
+    -- YOU MUST SET A WIDTH FOR THE "MARGIN AUTO" TO ACTUALLY WORK!
+        Otherwise, it thinks it's filling the whole page and can't
+        center it...
+    
+-- Margin Collapse --
+    -- If two divs are next to each other, they will be as far apart as
+        the sum of their adjacent margins.
+    -- HOWEVER, horizontal margins will pick the larger of the two
+        verticle margins.
+
+-- "Overflow" --
+    -- Used to control when an element is bigger than it's container.
+        -- 1. hidden -- any content that overflows will be hidden from view
+        -- 2. scroll -- a scrollbar will be added to the box so the rest of
+            the box's content can be viewed by scrolling down
+        -- 3. visible -- the overflow content will be displayed outside of
+            the containing element
+
+-- Under the box model, border thickness and padding is added to the overall
+    set width and height of the element. ex height: 200 width: 200, with
+    padding 10 increases the height / width to 220 x 220.
+
+-- "box-sizing" property can control the above.
+
+-- Change box-sizing to "border-box" in a universal CSS tag and it'll change
+    the box model to center everything and avoid the dimensional issues that
+    exist with the traditional box model. Aka the overall dimensions of the
+    box will not change.
+
+-- Block-level elements create a "block" the full width of their parent
+    elements preventing other elements from appearing in the same horizontal
+    space as them.
+
+-- The default position for all block-level elements is on the left side of
+    browser. "position" property can change this.
+    -- 1. static -- the default value
+    -- 2. relative -- relative to it's default static position using offset
+        properties which are ... (must specify offset for it to work)
+        -- top -- moves element down
+        -- bottom -- moves element up
+        -- left -- moves element right
+        -- right -- moves element left
+        -- offset properties won't work if the position: static.
+    -- 3. absolute -- all other elements will ignore it's position and act
+            like it's not present on the page. it's position will be set
+            relative to it's closest positioned parent element. will scroll
+            with the page
+    -- 4. fixed -- fixed will keep the element fixed on the page no matter
+            how they scroll.
+
+-- Display controls how the element will be displayed (duh). Some element
+    types fill the entire browser from left to right regardless of the size
+    of their content. Others only take up as much horizontal space as their
+    content requires and can be directly next to other elements.
+    -- 1. inline -- cannot be altered with css using the height or width
+            properties. (<em> <strong>)
+    -- 2. block -- aka block-level elements. default fill the entire width
+            of the page, but a specific width can be set. they are the
+            height need to display the content inside, unless otherwise
+            specified. (<p> <div> <h1> <footer>)
+    -- 3. inline-block -- can appear next to each other and can speicify
+            dimensions with width and height. (<img>)
+
+-- float -- will display element as far left or as far right as possible.
+    -- two properties -- left, right
+    -- works for static and relative positioned elements
+
+-- clear -- specifies how elements should behave when they bump into each
+    other on the page
+    -- 1. left -- the left side of the element won't touch any other element
+        within the same containing element
+    -- 2. right -- the right side of the element will not touch any other
+        element within the same containing element
+    -- 3. both -- neither side of the element will touch any other element
+        within the same containing element
+    -- 4. none -- the element can touch either side
+
+GIT BRANCHES --
+-- git branch
+    -- shows you which branch you are currently working in
+        -- "*" will show you which branch you are one
+
+-- git branch <newbranch>
+    -- creates a branch called <newbranch>
+    -- be sure to name your branch something that describes the purpose of
+        the branch.
+    -- can't contain white spaces
+
+-- git checkout <branchname>
+    -- switches to that branch
+    -- you are now able to make changes on that branch that do not effect
+        -- "master"
+
+-- git merge <branchname>
+    -- merges <branchname> into the master branch
+    -- must be in the branch you want to merge into, so make sure to change
+        -- back to "master" (or whatever branch you're merging into) before
+        -- doing the merge
+
+-- git branch -d <branchname>
+    -- deletes that branch once you're finished with it
+    -- branches are really only supposed to be used while you're working on
+        -- a specific feature or whatnot and then deleted after they've
+        -- been merged
+    -- branches cannot be deleted while unresolved merges are in effect
+
+-- git clone <remotelocation> <clonename>
+    -- <remotelocation> tells Git where to go to find the remote. This could
+        -- be a web address, or a filepath, such as:
+        /Users/teachers/Documents/some-remote
+    -- <clonename> is the name you give to the directory in which Git will
+        -- clone the repository
+    -- cloning copies a remote repository on your local repository
+
+-- git remote -v
+    -- once you're in the directory you've cloned the remote repository into
+        -- you can list all the remotes
+            -- Git lists the name of the remote, origin, as well as it's
+                location
+            -- Git automatically names this remote "origin", because it
+                refers to the remote repostiory of origin
+            -- the remote is listed twice, once for fetch and once for push
+
+-- git fetch
+    -- fetches changes that may have been made while you were away
+    -- doesn't merge them to your local repository
+    -- before you merge, make sure you're in your local MASTER branches repository
+    -- git merge origin/master will bring the changes from fetch into your
+        local repository
+
+-- GIT WORKFLOW --
+    -- 1. Fetch and merge changes from the remote
+    -- 2. Create a branch to work on a new project feature
+    -- 3. Develop the feature on your branch and commit your work
+    -- 4. Fetch and merge from the remote again (in case new commits were
+        made while you were working)
+    -- 5. Push your branch up to the remote for review
+
+-- git push origin <yourbranchname>
+    -- Allows the controller of the repository to check changes and approve
+        them before merging them.
+
+-- A "remote" is a Git repository that lives outside your Git project folder.
+    -- Remotes can live on the web, on a shared network or even in a separate
+    -- folder on your local computer.
+
+-- The "Git Collaborative Workflow" are steps that enable smooth project
+    -- development when multiple collaborators are working on the same Git
+    -- project.

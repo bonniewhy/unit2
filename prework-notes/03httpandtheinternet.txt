@@ -1,0 +1,115 @@
+NOTES ---
+
+UDACITY COURSE _____________________________________________________________
+-- URL stands for Uniform Resource Locator
+    -- "http://" protocal
+    -- "www.website.com" host
+    -- "/" path (stuff that comes after are part of the path ex. index.html)
+-- Query parameters (GET parameters)
+    -- ex "?p=1" name = value
+        -- first parameter separated with preceeding "?"
+    -- ex ?p=1&q=neat" 
+        -- all other parameters separated with preceeding "&"
+    -- For extra information to add on to the request.
+        -- Can effect caching, fancy things.
+        -- Technically changes the entire URL
+-- Fragments
+    -- Separeted by a "#"
+    -- Generally used to reference a part of a page you're looking at.
+    -- Could also have to do with JavaScript fancy things
+    -- When there are query parameters, the fragment will come last
+-- Port
+    -- "http://localhost:8000/"
+    -- default = 80
+    -- In order to make an internet connection, you need the address of a machine, and also a port.
+
+-- HTTP
+    -- HyperText Transfer Protocol
+    -- Requests
+        -- GET /foo?p=1 HTTP/1.1(Request line)
+            -- Host: www.example.com -- where we're requesting from
+            -- User-Agent: Chrome -- who is making the request (generally your browser)
+            -- Headers -- Name: value
+    -- Responses
+        -- HTTP/1.1(Status Line) 200(Status Code) OK(Reason Phrase)
+            -- 200 OK -- Means the document is found (most common)
+            -- 302 Found -- Means the document is located somewhere else
+            -- 404 Not Found -- Means the document wasn't found
+            -- 500 Server Error -- Means the server broke trying to handle your request
+            -- Status codes begin with 1, 2, 3, 4, or 5.
+                -- 2 - Success
+                -- 3 - Do something different to find it
+                -- 4 - There is an error on the browser side
+                -- 5 - Error on the server side
+        -- Headers will be listed when accessing the information through the HTTP get request or whatever.
+
+    -- Servers
+        -- The purpose of a server is to respond to HTTP requests
+        -- Static -- prewritten file that the server just returns
+            -- images
+            -- when the interent was invented most websites were static
+        -- Dynamic -- responses made on the fly
+            -- almost everything is dynamic now
+            -- web applications, even blogs
+
+ARTICLES TO READ ____________________________________________________________
+-- Computers connected to the web are called "clients" and "servers".
+    -- Clients are typical web user's internet-connected devices (computers, phone) and web-accessing softward available on those devices (Firefox, Chrome).
+    -- Servers are computers that store webpages, sites, or apps.
+
+-- The other parts of the toolbox -- a metaphor
+    -- The web is a road.
+    -- At one end is the "client" or Your House
+    -- At the other end is the "server" or a shop you want to buy something from
+    -- In addition to the client and the server, we also need to say hello to:
+        -- Your internet connection -- allows you to send and recieve data on the web. It's like the street between your house and the shop.
+        -- TCP/IP -- Transmission Control Protocol and Internet Protocol are communication protocols that define how data should travel across the web. This is like the transport mechanisms that let you place an order, go to the shop, and buy your goods. In our example, this is like a car or a bike.
+        -- DNS -- Domain Name Servers are like an address book for websites. When you type a web address in your broswer, the browser looks at the DNS to find the website's real address before it can retrieve the website. The browser needs to find out which server the website lives on, so it can send HTTP messages to the right place. This is like looking up the address of the shop so you know how to get there.
+        -- HTTP -- Hypertext Transfer Protocol is an application protocol that defines a language for clients and servers to speak to each other. This is like the language you use to order your goods.
+        -- Component files: A website is made up of many different files, which are like, the different parts of the goods you buy from the shop. These files come in two main types:
+            -- Code files: HTML, CSS, JavaScript, etc.
+            -- Assets: Images, music, video, Word documents, PDFs, etc.
+    
+-- When you type a web address into your browser (like walking to the shop):
+    -- 1. The browser goes to the DNS server, and finds the real address of the server the website lives on (you find the address of the shop).
+    -- 2. The browser sends an HTTP request message to the server, asking it to send a copy of the website to the client (you go to the sohp and order your stuff). This message, and all other data sent between the client and the server, is sent across your internet connection using TCP/IP.
+    -- 3. If the sever approves the request, the server sends the client a "200 OK" message, which means "Of course you can look at the website! Here it is!" and then starts sending the website's files to the browser as a series of small chunks called data packets (the shop gives you your stuff, and you bring them back to your house).
+    -- 4. The browser assembles the small chunks into a complete website and displays it to you (the goods are at your house, and you put it together at it's awesome yay!)
+
+-- DNS
+    -- Real web addresses aren't the nice, memorable strings you type into your browser. They actually look like this 63.245.215.20 aka an IP address.
+    -- IP addresses represent a unique location on the web.
+    -- Domain Name Servers were invented because IP addresses are super hard to remember.
+    -- These are special servers that match up a web address you type into your browser (like mozilla.org) to the website's real (IP) address.
+    -- You can reach websites directly via their IP addresses. You can find the IP address of a website by typing its domain into a tool like IP Checker.
+
+-- Packets
+    -- These get broken up so that several users can access the site at the same time. If it was all in one, it would be one user until they completed downloading the site and so everyone else would have to wait until it was all done.
+
+-- Web Servers
+    -- "Web server" can refer to hardware or software, or both of them working together.
+        -- Hardware -- is a computer that stores web server softwar and a website's component files (e.g. HTML documents, images, CSS, JavaScript, etc). It is connected to the Internet and supports physical data interchange with other devices connected to the web.
+        -- Software -- includes several parts that control how web users access hosted files, at minimum an HTTP server which is a piece of software that understands URLs and HTTP. It can be accessed through the domain names of websites it stores, and delievers their content to the end-user's device.
+
+    -- To publish a website, you need either a static or a dynamic web server.
+        -- Static -- aka stack, consists of a computer (hardware) with an HTTP server (software). We call it "static" because the server sends its hosted files "as-is" to your browser
+        -- Dyanmic -- consists of a static web server plus extra software, most commonly an application server and  a database. We call it "dynamic" because the application server updates the hosted files before sending them to your browser via the HTTP server.
+
+    -- To fetch a webpage, your browser sends a request to the web server, which proceeds to search for the requested file in its own storage space. On finding the file, the server reads in, processes it as needed, and sends it to the browser.
+        -- Hosting files --
+            -- A web server first has to store files (HTML and their related assests, images, CSS, JavaScript, fonts, videos, etc)
+            -- Technically, you could host all those files on your own computer, but it's far more convenient to store them all on a dedicated web server that --
+                -- is always up and running
+                -- is always connected to the Internet
+                -- has the same IP address all teh time (not all ISPs provide a fixed IP address for home lines)
+                -- is maintained by a third-party provider
+
+        -- Communicating through HTTP
+            -- Second, a web server provides support for HTTP.
+            -- A protocol is a set of rules for communication between two computers. HTTP is a textual, stateless protcol.
+                -- Textual -- All commands are plain-text and human-readable.
+                -- Stateless -- Neither the server nor the client remember previous communications. For example, relying on HTTP alnoe, a server cannot remember a password you typed or what step you're on in a transaction.
+
+-- AN OVERVIEW OF HTTP
+    -- HTTP is a protocol which allows the fetching of resources, such as HTML documents.
+    -- The user-agent is any tool that acts on the behalf of the user.

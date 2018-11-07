@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <form action="/" method="POST">
+        <label>Task: 
+            <input type="text" name="todo" />
+        </label>
+        <input type="submit" />
+    </form>
+
+    <hr />
+
+    {% if list_title %}
+        <h1>{{list_title}}</h1>
+
+    {% else %}
+        <h1>Generic List Title</h1>
+
+    {% endif %}
+    
+    <ul>
+    {% for task in tasks %}
+        <li>{{ task }}</li>
+    {% endfor %}
+    </ul>
+</div>
+{% endblock %}

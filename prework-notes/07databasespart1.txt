@@ -1,0 +1,461 @@
+NOTES ---
+
+-- SQL is a standard language for storing, manipulating and retrieving data in databases.
+-- SQL stands for Structured Query language.
+-- What can SQL do? --
+    -- execute queries against a database.
+    -- retrieve data from a database.
+    -- insert records in a database.
+    -- update records in a database.
+    -- delete records from a database.
+    -- create new databases.
+    -- create new tables in a database.
+    -- create stored procedures in a database.
+    -- create views in a database.
+    -- set permissions on tables, procedures, and views.
+
+-- To build a website that shows data from a database, you will need:
+    --  An RDBMS database program (ie. MS Access, SQL Server, MySQL)
+    -- To use a server-side scripting langauge, like PHP or ASP
+    -- To use SQL to get the data you want
+    -- To use HTML / CSS to style the page
+
+-- RDBMS stands for Relational Database Management System.
+-- RDBMS stores data in database objects called "tables".
+-- A table is a collection of related data entries and it consists of columns and rows.
+    -- Every table is broken down into smaller entities called "fields", which are basically the column names.
+    -- A "record", basically the rows, is each individual entry that exists in the table.
+
+-- SQL STATEMENTS
+    -- SELECT * FROM <database_name>; -- Selects all things from the records in the table <database_name>
+    -- Keywords are not case sensitive: "select" is the same as "SELECT"
+    -- Semicolon is the standard way to separate each SQL statement in database systems that allow more than one SQL statement to be executed in the same call to the server.
+    -- MOST IMPORTANT SQL COMMANDS --
+        -- SELECT: extracts data from a database
+        -- UPDATE: updates data in a database
+        -- DELETE: deletes data from a database
+        -- INSERT INTO: inserts new data into a database
+        -- CREATE DATABASE: creates a new database
+        -- ALTER DATABASE: modifies a database
+        -- CREATE TABLE: creates a new table
+        -- ALTER TABLE: modifies a table
+        -- DROP TABLE: deletes a table
+        -- CREATE INDEX: creats an index (search key)
+        -- DROP INDEX: deletes an index
+
+-- SELECT STATEMENT
+    -- SYNTAX:
+        SELECT <column1>, <column2>, ...
+        FROM <table_name>;
+
+        Here, column1, column2, ... are the field names of the table you want to select data from. Use the * to select all the fields available in the table.
+
+-- SELECT DISTINCT STATEMENT
+    -- SYNTAX:
+        SELECT DISTINCT <column1>, <column2>, ...
+        FROM <table_name>;
+
+        Used to return only distinct (different) values. Inside a table, a column often contains many duplicate values, and sometimes you only want to list the different values.
+
+        SELECT COUNT(DISTINCT <column>) FROM <table_name>;
+
+        Will return just how many distinct entries are in that column selected. NOT SUPPORTED IN MICROSOFT ACCESS DATABASES; WILL NOT WORK IN FIREFOX OR MICROSOFT EDGE.
+
+            MS ACCESS SYNTAX:
+            SELECT Count(*) AS <return_count_name>
+            FROM (SELECT DISTINCT <column> FROM <table_name>);
+
+-- WHERE CLAUSE
+    -- SYNTAX:
+        SELECT <column1>, <column2>, ...
+        FROM <table_name>
+        WHERE <condition>;
+
+        Used to filter records. Only extracts those records that fulfill a specified condition.
+        NOT ONLY USED IN "SELECT" STATMENTS; it is also used in UPDATE, DELETE, etc.
+
+
+        SQL requires single quotes around text values (most database systems will also allow double quotes), but numeric fields should not be enclosed in quotes.
+
+        OPERATORS:
+            = : Equal
+            <> : Not equal. NOTE: In some versions of SQL this operator may be written as !=
+            > : Greater than
+            < : Less than
+            >= : Greater than or equal to
+            <= : Less than or equal to
+            BETWEEN : Between a certain range
+            LIKE : Search for a pattern
+            IN : To specify multiple possible values for a column
+
+
+-- AND, OR and NOT OPERATORS
+    -- AND and OR operators are used to filter records based on more than on condition:
+
+    AND SYNTAX:
+    SELECT <column1>, <column2>, ...
+    FROM <table_name>
+    WHERE <condition1> AND <condition2> AND <condition3> ...;
+
+    Displays a record if all the conditions separated by AND are TRUE.
+
+    OR SYNTAX:
+    SELECT <column1>, <column2>, ...
+    FROM <table_name>
+    WHERE <condition1> OR <condition2> OR <condition3> ...;
+
+    Displays a record if any of the conditions separated by OR are TRUE.
+
+    NOT SYNTAX:
+    SELECT <column1>, <column2>, ...
+    FROM <table_name>
+    WHERE NOT <condition>;
+
+    Displays a record if the condition(s) are NOT TRUE.
+
+    * You can also combine the AND, OR and NOT operators.
+
+-- ORDER BY KEYWORD
+    SYNTAX:
+    SELECT <column1>, <column2>, ...
+    FROM <table_name>
+    ORDER BY <column1>, <column2>, ... ASC|DESC;
+
+    Used to sort the result-set in ascending or descending order. ASC is ascending which is default. DESC is descending.
+
+-- INSERT INTO STATEMENT
+    SYNTAX:
+    FIRST OPTION --
+        INSERT INTO <table_name> (<column1>, <column2>, <column3>, ...)
+        VALUES (<value1>, <value2>, <value3>, ...);
+
+        Specifies both the column names and the values to be inserted.
+
+        INSERT INTO <table_name>
+        VALUES (<value1>, <value2>, <value3>, ...);
+
+        If you're adding values to all of the columns, you don't need to specify the column names in the SQL query. However, make sure the order of the values is the same order as the columns in the table.
+
+        * Can have "auto-increment" fields.
+
+-- NULL VALUES
+    -- Note: A NULL value is different from a "zero value" or a field that contains spaces. A field with a "NULL" value is one that has been left blank during record creation!
+
+    -- HOW TO TEST FOR NULL VALUES:
+        -- It is not possible to test for NULL values with comaparison operators, such as =, <, or <>.
+
+        IS NULL SYNTAX:
+        SELECT <column_names>
+        FROM <table_name>
+        WHERE <column_name> IS NULL;
+
+        Used to test for empty values.
+
+        IS NOT NULL SYNTAX:
+        SELECT <column_names>
+        FROM <table_name>
+        WHERE <column_name> IS NOT NULL;
+
+        Used to test for non-empty values.
+
+-- UPDATE STATEMENT
+    SYNTAX:
+    UPDATE <table_name>
+    SET <column1> = <value1>, <column2> = <value2>, ...
+    WHERE <condition>;
+
+    Used to modify the existing records in a table.
+
+    * NOTE: Be careful when updated records in a table! Notice the WHERE clause in the UPDATE statement. The WHERE clause specifies which record(s) that should be updated. If you omit the WHERE clause, all records in the table will be updated!
+
+-- DELETE STATEMENT
+    SYNTAX:
+    DELETE FROM <table_name>
+    WHERE <condition>;
+
+    * BE CAREFUL WHEN DELETING RECORDS IN A TABLE! If you don't include a WHERE clause, all records in the table will be deleted.
+
+-- TOP, LIMIT or ROWNUM CLAUSE
+    Used to specify the number of records to return. Useful on large databases with thousands of records as returning a large number of records can have an impact on performance.
+
+    *** NOTE: Not all database systems support the SELECT TOP clause.
+
+    SQL Server / MS Access SYNTAX:
+    SELECT TOP <number>|<percent> <column_name(s)>
+    FROM <table_name>
+    WHERE <condition>;
+
+    MySQL SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <condition>
+    LIMIT <number>;
+
+    Oracle SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE ROWNUM <conditional_operator> <number>;
+
+-- MIN() and MAX() FUNCTIONS
+    MIN() SYNTAX:
+    SELECT MIN(<column_name>)
+    FROM <table_name>
+    WHERE <condition>;
+
+    Returns the smallest value of the selected column.
+
+    MAX() SYNTAX:
+    SELECT MAX(<column_name>)
+    FROM <table_name>
+    WHERE <condition>;
+
+    Returns the largest value of the selected column.
+
+-- COUNT(), AVG(), and SUM() FUNCTIONS
+    COUNT() SYNTAX:
+    SELECT COUNT(<column_name>)
+    FROM <table_name>
+    WHERE <condition>;
+
+    Returns the number of rows that matches a specified critera.
+
+    AVG() SYNTAX:
+    SELECT AVG(<column_name>)
+    FROM <table_name>
+    WHERE <condition>;
+
+    Returns the average value of a numeric column.
+
+    SUM() SYNTAX:
+    SELECT SUM(<column_name>)
+    FROM <table_name>
+    WHERE <condition>;
+
+    Returns the total sum of a numeric column.
+
+    * NOTE: NULL values are not counted.
+
+-- LIKE OPERATOR
+    SYNTAX:
+    SELECT <column1>, <column2>, ...
+    FROM <table_name>
+    WHERE <column> LIKE <pattern>;
+
+    % - represents zero, one, or multiple characters
+    _ - represents a single character (MS Access uses a ? instead of an _)
+    * TIP - You can also combine any number of conditions using AND or OR operators.
+
+    Used in a WHERE clause to search for a specified pattern in a column.
+
+-- IN OPERATOR
+    SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <column_name> IN (<value1>, <value2>, ...);
+
+    or
+
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <column_name> IN (SELECT STATEMENT);
+
+    Allows you to specify multiple values in a WHERE clause. Shorthand for multiple OR conditions.
+
+-- BETWEEN OPERATOR
+    SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <column_name> BETWEEN <value1> AND <value2>;
+
+    Selects values within a given range. Can be numbers, text or dates. Is inclusive: begin and end values are included.
+
+-- ALIASES
+    COLUMN SYNTAX:
+    SELECT <column_name> AS <alias_name>
+    FROM <table_name>;
+
+    TABLE SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name> AS <alias_name>;
+
+    Used to give a table, or a column in a table, a temporary name. Often used to make column names more readable. Only exists for the duration of the query.
+
+    Can be useful when:
+        -- There are more than on table involved in a query
+        -- Functions are used in the query
+        -- Column names are big or not very readable
+        -- Two or more columns are combined together
+
+-- JOINS
+    Used to combine rows from two or more tables, based on a related column between them
+    -- INNER JOIN: Returns records that have matching values in both tables.
+    -- LEFT (OUTER) JOIN: Return all records from teh left table, and the matched records from the right table
+    -- RIGHT (OUTER) JOIN: Return all records from the right table, and the matched records from the left table
+    -- FULL (OUTER) JOIN: Return all records when there is a match in either left or right table
+
+    INNER JOIN SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table1>
+    INNER JOIN <table2> ON <table1>.<column_name> = <table2>.<column_name>;
+
+    Selects records that have matching values in both tables. The INNER JOIN keyword selects all rows from both tables as long as there is a match between the columns. If there are records in the first tables that do not have matches in the second table, these orders will not be shown!
+
+    LEFT JOIN SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table1>
+    LEFT JOIN <table2> ON <table1>.<column_name> = <table2>.<column_name>;
+
+    Returns all the records from the left table (table1), and the matched records from the right table (table2). The result is NULL from the right side, if there is no match. Sometimes called LEFT OUTER JOIN. The LEFT JOIN keyword returns all records from the left table, even if there are no matches in the right table.
+
+    RIGHT JOIN SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table1>
+    RIGHT JOIN <table2> ON <table1>.<column_name> = <table2>.<column_name>;
+
+    Returns all records from the right table (table2), and the matched records from the left table (table1). The result is NULL from the left side, when there is no match. Sometimes called RIGHT OUTER JOIN. The RIGHT JOIN keyword returns all records from the right table, even if there are no matches in the left table.
+
+    FULL OUTER JOIN SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table1>
+    FULL OUTER JOIN <table2> ON <table1>.<column_name> = <table2>.<column_name>;
+
+    Return all records when there is a match in either left (table1) or right (table2) table records. Can potentially return very large result-sets. The FULL OUTER JOIN keyword returns all the rows from the left table, and all the rows from the right table. If there are rows in the left table that do not have matches in the right table, or if there are rows in the right table that do not have matches in the left table, those rows will be listed as well.
+
+    SELF JOIN SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table1> <T1>, <table2> <T2>
+    WHERE <condition>;
+
+    Is a regular join but the table is joined with itself.
+
+    UNION SYNTAX:
+    SELECT <column_name(s)> FROM <table1>
+    UNION
+    SELECT <column_name(s)> FROM <table2>;
+
+    Is used to combine the result-set of two or more SELECT statements. Selects only distinct values by default.
+        -- Each select statement within UNION must have the same number of columns
+        -- The columns must also have similar data types
+        -- The columns in each SELECT statement must also be in the same order
+
+    UNION ALL SYNTAX:
+    SELECT <column_name(s)> FROM <table1>
+    UNION ALL
+    SELECT <column_name(s)> FROM <table2>;
+
+    Allows duplicate values.
+
+-- GROUP BY STATEMENT
+    SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <condition>
+    GROUP BY <column_name(s)>
+    ORDER BY <column_name(s)>;
+
+    Often used with aggregate functions (COUNT, MAX, MIN, SUM, AVG) to group the result-set by one or more columns.
+
+-- HAVING CLAUSE
+    SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <condition>
+    GROUP BY <column_name(s)>
+    HAVING <condition>
+    ORDER BY <column_name(s)>;
+
+    Was added to SQL because the WHERE keyword cannot be used with aggregate functions.
+
+-- EXISTS OPERATOR
+    SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE EXISTS
+    (SELECT <column_name> FROM <table_name> WHERE <condition>);
+
+    Is used to test for the existence of any record in a subquery. Returns true if the subquery returns one or more records.
+
+-- ANY and ALL OPERATORS
+    Used with a WHERE or HAVING clause.
+
+    ANY SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <column_name> <operator> ANY
+    (SELECT <column_name> FROM <table_name> WHERE <condition>);
+
+    Returns true if any of the subquery values meet the condition.
+
+    ALL SYNTAX:
+    SELECT <column_name(s)>
+    FROM <table_name>
+    WHERE <column_name> <operator> ALL
+    (SELECT <column_name> FROM <table_name> WHERE <condition>);
+
+    Returns true if all of the subquery values meet the condition.
+
+    OPERATOR MUST BE A STANDARD COMPARISON OPERATOR (=, <>, !=, >, >=, <, or <=).
+
+-- SELECT INTO
+    COPY ALL COLUNNS SYNTAX:
+    SELECT *
+    INTO <newtable> [IN <externalDB>]
+    FROM <oldtable>
+    WHERE <condition>;
+
+    COPY ONLY SOME COLUMNS SYNTAX:
+    SELECT <column1>, <column2>, <column3>, ...
+    INTO <newtable> [IN <externalDB>]
+    FROM <oldtable>
+    WHERE <condition>;
+
+    Copies data from one table into a new table. The new table will be created with the column names and types as defined in the old table. You can create new column names using the AS clause.
+
+-- INSERT INTO SELECT CLAUSE
+    COPY ALL COLUMNS SYNTAX:
+    INSERT INTO <table2>
+    SELECT * FROM <table1>
+    WHERE <condition>;
+
+    COPY ONLY SOME COLUMNS SYNTAX:
+    INSERT INTO <table2> (<column1>, <column2>, <column3>, ...)
+    SELECT <column1>, <column2>, <column3>, ...
+    FROM <table1>
+    WHERE <condition>;
+
+    Copies data from one table and inserts it into another table.
+        -- Requires that data types in source and target tables match
+        -- The existing records in the target table are unaffected.
+
+-- NULL FUNCTIONS
+    MySQL --
+        -- IFNULL() of COALESCE() lets you return an alternative value if an expresion is NULL
+    SQL Server --
+        -- ISNULL() lets you return an alternative value.
+    MS Access --
+        -- IsNull() returns TRUE (-1) if the expression is a null value, otherwise FALSE (0):
+    Oracle --
+        -- NVL() function achieves the same result.
+
+-- STORED PROCEDURES
+    -- A stored procedure is a prepared SQL code that you can save, so the code can be reused over and over again. You can also pass parameters to a stored procedure, so that the store procedure can act based on the parameter value(s) that is passed.
+
+    SYNTAX:
+    CREATE PROCEDURE <procedure_nam
+    AS
+    <sql_statement>
+    GO;
+
+    EXECUTE SYNTAX:
+    EXEC <procedure_name>;
+
+-- COMMENTS
+    -- Can be used to explain sections of SQL statements, or to prevent execustion of SQL statements. COMMENTS ARE NOT SUPPORTED IN MICROSOFT ACCESS DATABASES AKA FIREFOX / MICROSOFT EDGE.
+
+    -- Single line comments start with "--". Any text between the "--" and the end of the line will be ignored.
+
+    -- "/*" and "*/" Enclose multi-line comments.
+
+-- CREATING TABLE
+    SYNTAX:
+    CREATE TABLE <table_name> (<first_column> <data_type> *by convention, id INTEGER PRIMARY KEY, <second_column> <data_type>, ...);

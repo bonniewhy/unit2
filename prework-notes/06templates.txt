@@ -1,0 +1,28 @@
+NOTES --
+
+-- Templates will eliminate the need to put strings of code in your Python files.
+-- Jinja2 is an engine that can allow us to do this. Built into Flask.
+
+
+
+JINJA SYNTAX NOTES --
+
+-- import os, import jinja2 -- put at top of main.py file, will allow us to use the templates
+-- os.path.join(os.path.dirname(__file__), 'write dir name here') -- absolute path on the filesystem which the program is running. basically saying, join(the current directory we're in, with the 'write dir name here' directory to find our templates)
+-- template = jinja_env.get_template('yourhtmlfilehere.html') / return template.render() -- simplest way to return the template in your app
+-- return template.render(variable=contents) -- will insert contents into {{variable}} in your html template much like string methods
+
+
+
+REVIEW QUESTIONS --
+
+1. What are the beneifts of using templates instead of str.format for HTML?
+    -- Obviously it really "DRY"s out your Python code which makes it easier to read, therefore making it easier to debug, if need be.
+2. How do you use placeholders in templates? Is it the same as with str.format? If not, how is it different?
+    -- Placeholders behave in nearly the same way as with str.format placeholders except you have to do {{}} double curly braces, instead of single curly braces, and you don't need to add double curly braces to any "style" tags you might have.
+3. How do you do HTML escpaing with templates?
+    -- There is a built in method in Jinja2 to do HTML escaping. You call it when you're making your Jinja2 environment with "autoescape = True". However, when you use the "render_template()" function from Flask, it does it for you automatically.
+4. What is the syntax you use to include a loop in your template? And to include a conditional?
+    -- Any Jinja2 syntax added into an HTML file needs to be wrapped in {% %}. You also need to make sure to "start" and "stop" the code, as HTML ignores whitespace and tabs which is how Python knows a loop / conditional is over. The actual tags are {% for blah blah blah %} HTML stuff to render here {% endfor %} and {% if blah blah blah %} HTML stuff to render here {% endif %}. Can also use {% else %} and {% elif %} before the {% endwhatever %} tag.
+5. How can you make your code more reusable and write less boilerplate code using templates? Explain the relationship between base templates, content blocks, and template extensions.
+    -- You can do this by using a base.html template that has a {% block content %}{% endblock %} tag in it. The base HTML file will be accessed when your code accesses the snippet file (in this case our "todos.html") that begins with {% extends 'base.html' %} so it knows what to do. You also have to add the block endblock tags in there as well.

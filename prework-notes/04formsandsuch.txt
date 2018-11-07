@@ -1,0 +1,111 @@
+NOTES ----
+
+Flask Forms ---
+-- You wanna use POST requests more often because they won't add the information from the form onto the end of the browser windows, GET requests do... useful for passwords and such
+-- POST requests are generally meant to make changes to data; eg making a credit card purchase, signing up for an email list, etc.
+-- If you refresh, POST requests make sure to ask you if you want to do it as it will do the same request twice. eg, could charge your card twice
+
+HTTP METHODS ---
+-- GET is used to request data froma a specified resource. One of the most common HTTP methods.
+    -- Can be cached
+    -- Remain in history
+    -- Can be bookmarked
+    -- SHOULD NEVER BE USED WHEN HANDLING SENSITIVE DATA
+    -- Have length restrictions
+    -- Only used to request data, not modify
+
+-- POST is used to send data to a server to create/update a resource. One of the most common HTTP methods.
+    -- Never cached.
+    -- Do not remain in browser history
+    -- Cannot be bookmarked.
+    -- Have no restrictions on data length.
+
+-- PUT is used to send data to a server to create/update a resource.
+    -- PUT requests are "idempotent." AKA Calling the same PUT request multiple times will always produce the same result.
+
+-- HEAD is almost identical to GET, but without the response body.
+    -- Useful for checking what a GET request will return before actually makign a GET request.
+
+-- DELETE method deletes the specified resource.
+
+-- OPTIONS method describes the communication options for the target resource.
+
+-- GET VS POST
+    -- ACTION | GET | POST
+    -- BACK button/Reload | Harmless | Data will be re-submitted (and the browser will alert to such)
+    -- Bookmarked | Can be bookmarked | Cannot be bookmarked
+    -- Cached | Can be cached | Cannot be cached
+    -- Encoding type | application/x-www-form-urlencoded | application/x-www-form-urlencoded or multipart/form-data. Use multipart encoding for binary data.
+    -- History | Parameters remain in browser history | Parameters are not saved in browser history
+    -- Restrictions on data length | Yes, when sending data, GET method adds the data to the URL; and the length of a URL is limited (MAXIMUM URL LENGTH IS 2048 CHARACTERS) | No restrictions
+    -- Restrictions on data type | Only ASCII characters allowed | No restrictions. Binary data is also allowed.
+    -- Security | GET is less secure compared to POST because data is sent as part of the URL. NEVER USE GET WHEN SENDING PASSWORDS OR OTHER SENSITIVE DATA. | POST is a little safer than GET because the parameters are not stored in browser history or in web server logs
+    -- Visibilit | Data is visible to everyone in the URL | Data is not displayed in the URL
+
+-- HTTP STATUS CODES
+    -- 1XX Information response :
+        -- Indicates that the request was received and understood. It alerts the client to wait for a final response.
+
+    -- 2XX Success :
+        -- Indicates the action request by the client was recieved, understood, and accepted.
+
+    -- 3XX Redirection :
+        -- Indicates the client must take additional action to complete the requests. Many of these are used in URL redirection.
+
+    -- 4XX Client Errors :
+        -- Intended for situations in which the error seems to have been caused by the client. Except when responding to a HEAD request, the server should include an entity containing an explanation of the error situation, and whether it is a temporary or permanent condition.
+
+    -- 5XX Server Errors :
+        -- The server failed to fulfill a request.
+        -- Indicates cases in which the server is aware that it has encountered an error or is otherwise incapable of performing the request.
+    
+    -- 200 OK -- Standard response for successful HTTP requests
+    -- 302 Found -- Tells the client to look at (browse to) another URL.
+    -- 400 Bad Request -- The server cannot or will not process the request due to an apparent client error (eg malformed request syntax, size too large, invalid request message framing, or deceptive request routing.)
+    -- 404 Not Found -- The requested resource could not be found but may be available in the future. Subsequent request by the client are permissible.
+    -- 405 Method Not Allowed -- A request method is not supported for the requested resource; for example, a GET request on a form that requires data to be presented via POST, or a PUT request on a read-only resource.
+    -- 500 Internal Server Error -- A generic error message, given when an unexpected condition was encountered and no more specific message is suitable.
+
+-- DIFFERENT FORM TYPES --
+    -- type=text -- plain text box that you can type in
+    -- type=password -- will mask what you type in the box
+    -- type=email -- will make sure it's a "valid" email address (really just has the right format)
+    -- type=checkbox -- any number can be checked
+    -- type=radio -- only one can be checked; names must match
+    -- textarea -- larger box meant for larger amounts of information, usually apply CSS to control the size of the box.
+    -- select -- drop down box, markup similar to ul. <option value="short description">Display text</option>
+
+-- type="hidden" -- attribute to store a piece of data that you want your application to know about, but the user should not be able to know about / edit it.
+
+-- str.format in PYTHON --
+    -- Can use a placeholder closed in curly braces, (ex {0}) 
+    -- The number in the braces refers to the index of the .format(0, 1, 2, etc) markup.
+    -- Can also use "named" placeholders in place of "indexed" placeholders still using curly braces with variables in between.
+    -- When you call str.format, you need to assign the names with name="string" to tell it where to put what.
+
+
+CLASS 4 PREP REVIEW ---
+    1. When do you want to use the "name" and "id" attributes for an HTML element? What are the uses of each? Which one will a "label" element's "for" attribute reference? Which one will you use to access an element in your Flask app?
+        -- "name" is useful to label your content. it will help to differentiate between each of the forms content and when used correctly can display the "question" that the user was answering with their information.
+        -- "id" is how to apply labels to specific boxes so that when the text is clicked it will activate the box that it corresponds to.
+        -- "label" elements are useful to help the user be able to understand what kind of information needs to be put in the box.
+        -- "for" is used to link the "label" tag with a specific "input" tag.
+        
+
+    2. What is the difference between a "radio" input type and a "checkbox" input type? Which would you sue when you want a user to be able to select multiple options?
+        -- Radio buttons can only have one of the options selected (as long as they have the same name)
+        -- Checkboxes can have as many as the user wants to select at the same time selected.
+        -- You'd want to use a "checkbox".
+
+    3. Which attribute can you use to specify a default value to be sent to the server when a form is submitted?
+        -- Value?
+
+    4. What are the differences between GET and POST requests? When do you want to use each? What attribute of the "form" element is used to specify the type of request you'll be making?
+        -- GET is used to get information from a resource. For less sensitive data and will be stored in caches, bookmarks, history, and is displayed in the URL.
+        -- POST is used to create or change data in a resource. It will not be cached, bookmarked, or stored in history as it is not displayed in the URL.
+
+    5. Describe a situation in which each of the following HTTP status codes might be recieved by a browser: 200, 404, 405, 500.
+        -- 200 will be recieved when everything is a-ok and up and running.
+        -- 404 will be recieved when the resource cannot be found. usually a missing page / broken link from a different page.
+        -- 405 is when the request method is not supported for the requested resource. IE if your form says method="post" but your app says methods=["GET"]
+        -- 500 is an internal server error, very generic message when some error happened and no more specific message is applicable.

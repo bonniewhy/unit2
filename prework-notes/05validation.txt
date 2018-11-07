@@ -1,0 +1,41 @@
+NOTES ---
+
+-- Why do we validate form data?
+    -- Ensure that user submitted data makes sense for the application to work correctly
+    -- Prevent users from submitting data that might break the application
+    -- Provide user-friendly feedback when data doesn't meet our criteria
+
+-- Client-side Validation
+    -- HTML input element attributes
+        -- ex "type=email" to make sure it's an email address
+    -- JavaScript
+        -- can read the form values before it's submitted and can report the error to the user to make sure they fix it
+
+    -- Advantages:
+        -- Data can be vaildated in "real time" without having to make a request to the server. Much more user-friendly.
+    -- Disadvantages:
+        -- Can be easily by passed by disabling JS or by submitting a request without using the form you've written.
+
+-- Server-side Validation
+    -- Within request handlers
+        -- We can write code to check the values of the data submitted to make sure it's correct and, if not, report back to the user
+    -- Within model classes
+        -- within Java or C# (not covered now)
+
+    -- Advantages:
+        -- cannot be bypassed at all.
+    -- Disadvantages:
+        -- not that user friendly since a request has to be submitted in order to have the data validated. could be annoying to have to retype everything
+
+-- Validate data in as many places as you can! Use both sides.
+-- Never assume that it will be valid and safe, so validate everywhere!! Double validate! It's not a waste of time!
+
+REVIEW QUESTIONS --
+1. What are the advantages and disadvantages of client side validation and of server side validation? Why do you want to use both?
+    -- Client side validation is more user friendly which is an advantage as the user can see immediately what is wrong and fix it before submitting the form to a server side validator. It can be easily bypassed by a user disabling JavaScript in their browser or submitting a request without using the form you submitted.
+
+2. How do you redirect a user after they submit a form?
+    -- You can use Flask "redirect" function to put you through to a different app decorator (not exactly sure of the terminology there) which will, upon sending the form to your server, have your server send back a 403 code which then searches for the route and, once it finds it, returns what is written under that route.
+
+3. In what situations and for what reason would you do HTML escaping?
+    -- If someone were to enter HTML tags into a text form, they would render on the next page possibly breaking your page, making the view ugly, or a malicious user could insert something really harmful into the field. When you "escape" they HTML, it will just replace all the tag elements with their HTML entity counterparts and display it like a string making the code not work and protecting your page or server or whatever.
