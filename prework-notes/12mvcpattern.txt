@@ -1,0 +1,74 @@
+NOTES ---
+-- MVC = Model-View-Controller
+    -- is a design pattern which means that it is an approach to structuring code that can be applied in different languages and different settings.
+
+-- Is not a framework. Just an architectural paradigm for programming. Designed in 1979. A way of thinking and a way of processing information. A way to structure your application so that it processes the information in the right way.
+-- It's popular because it's used by most frameworks --
+    -- Ruby on Rails
+    -- CakePHP
+    -- Django
+    -- Laravel
+    -- Zend Framework
+    -- CodeIgniter
+    -- IoS
+    -- Objective C (object oriented version of "C")
+    -- and more...
+-- Frameworks implement an MVC structure.
+
+-- WHAT THE HELL IS IT?
+    -- M: Model
+        -- "Databases" 
+        -- SQL
+        -- Contains all storage
+        -- Relations or Non-relational
+
+    -- V: View
+        -- "Client"
+        -- Chrome/Firefox/IE
+        -- HTML/CSS/Javascript
+
+    -- C: Controller
+        -- "Server"
+        -- Linux / Windows Server
+        -- Server Side Languages
+        -- PHP/Ruby/Python
+
+    -- Prevents us from having to repeate ourselves.
+    -- Helps to create a solid structure around our web application.
+
+-- The Model is anything we do to interact with the data.
+    -- Adding and retrieving items from DB
+    -- Processing data from or to the database
+    -- Speakes only with the Controller
+
+-- The View is what's displaying information to the user.
+    -- This is the only thing the user ever sees.
+    -- Think of good old fashioned HTML/CSS
+    -- Speaks only with the Controller. (listening) The controller tells the view what to do and never talks back. Doesn't make any decisions for itself. One way.
+
+-- The Controller interacting with the user.
+    -- Processes GET/POST/PUT/DESTROY requests.
+    -- All server side logic tells the model "here's what I need"
+    -- The middle man
+        -- Takes info from user
+        -- Processes info and talks to the DB if needed
+        -- Recieves info from the DB
+        -- Speaks to the View to explain how to present it to the user.
+
+-- REVIEW QUESTIONS ---
+1. Describe the respective responsibilities of the model, view, and control aspects of an application.
+    -- Model is repsonsible for storing the data.
+    -- View is responsible for displaying things to the user.
+    -- Controller is responsible for taking information from the model to translate it so that the view can use it.
+
+2. With whom does the controller communicate? With whom does the view communication? With whom does the model communicate?
+    -- The controller is the middle man and communicates with bothe the model and the view.
+    -- The view only listens to the controller and does what it says.
+    -- The model communicates only with the controller, handing it information as requested.
+
+3. Which of the three interacts directly with the database?
+    -- The controller
+
+4. Which of the three does the user directly interact with?
+    -- The view
+    
