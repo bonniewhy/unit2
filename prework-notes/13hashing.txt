@@ -1,0 +1,110 @@
+NOTES ---
+-- Most people re-use passwords across multiple sites.
+-- Hackers that have gained access to passwrod data from one site, can and usually will use that to try to access your accounts on other sites.
+-- As a developer of one of those other sites, we can't do much about that.
+-- We can, however, ensure that our site isn't the source of compromised data. We are not exposing them.
+
+https://haveibeenpwned.com -- see if your email is part of any large scale data breeches!
+
+ENCRYPTION --
+-- We often talk about data security using the term "encryption". Encryption is a two-way operation. We apply an algorithm to encrypt a message, and that operation is reversible.
+
+EX: Ceasar cipher.
+
+-- Downsides of Encryption
+    -- Un-encrypting a message requires a "key". If the key is compromised, all encrypted data becomes exposed.
+    -- If a message is able to be un-encrypted, then anybody with the key can steal that information if they have the key.
+
+ONE-WAY HASHING --
+-- An alternative to two-way encryption is "one-way hashing".
+-- The idea behind hashing is that given a string, an algorithm can produce an output that is difficult to un-encrypt, but is still useful in uniquely determining the intent of the user.
+-- Hashing is a technique that turns a string into an unintelligible, fixed-length string of characters that is in some sense unique.
+
+    hashval = hash_func(msg)
+
+CHARACTERISTICS OF A GOOD HASH FUNCTION --
+-- Speed: Since they will be used frequently, they should be very fast.
+-- Deterministic: Running the hash function multiple times with the same string should always produce the same result.
+-- Inversion-resistent: It should be very, very, very difficult (i.e. more-or-less impossible) to find a way to "reverse" the hashing process.
+-- Collision-resistent: It should be very, very, very rare that passing two different strings through the hash function will give the same result.
+
+BENEFITS OF HASHING --
+-- Site developers can't see or decrypt user passwords.
+-- It's almost impossible to "reverse" the hash, so even if a hacker is able to access an app's database, it is very difficult for them to determine user passwords.
+-- Hashing still allows for verification.
+
+HOW WE VERIFY PASSWORDS USING HASHES --
+-- Here's the rough idea:
+    password = request.form['password']
+    pw_hash = user.pw_hash
+    if pw_has == hash_func(password):
+        return 'Correct password'
+    else:
+        return 'Incorrect password D:"
+
+A NAIVE HASH FUNCTION --
+
+    ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+    def alphabet_position(char):
+        return ALPHABET.index(char.lower()) + 1
+
+    def hash(word):
+        positions = [alphabet_position(char) for char in list(word)]
+        return sum(positions)
+
+    -- BASICALLY, takes all the alphabet positions of the password and adds them altogether to make a number.
+
+    What's good about this?
+        -- It's fast.
+        -- It's impossible to reverse.
+        -- It's deterministic (always produces the same sult for a given string)
+
+    What's bad?
+        -- COLLISIONS!! GALORE!!
+
+HOW HASHING WORKS IN PYTHONG --
+-- hashlib --
+    -- Has a ton of different hash functions that all work differently with different algorithms.
+    -- We're using "sha256()"
+        -- pass pwd into sha256
+        -- all the hash functions expect to get a set of bytes, not strings
+            -- do that by hashfunc(str.encode(pwd))
+            -- you get a hash object from this.
+        -- we need to store a hash string
+            -- to do this, we will use hashfun(str.encode(pwd)).hexdigest()
+            -- will return a very long string of random numbers and letters that will the be stored in the database.
+
+SALTING PASSWORDS --
+-- A Hashing Vulnerability
+    -- The number of good hash functions in use is relatively small. If a hacker steals your data and guesses which has function you used, they can still figure out user passwords using a "rainbow table".
+
+-- The Fix: Salts
+    -- For each password that we hash, we can tack on a random "salt" (a string of random characters) to make it much harder to use this brute-force approach.
+    -- Here's a rough idea:
+        password = request.form['password']
+        salt = get_salt()
+        pw_hash = hash_func(password + salt)
+
+REVIEW QUESTIONS --
+1. Describe how encryption works.
+    -- Encryption takes a key and puts the string through with it to create a jumbled string in return. There is also a key that can change it back. It's a two-way street.
+
+2. What is a downside of encyrption? And what is a solution, with regard to password storage, to that downside?
+    -- The downside is that someone who might want to get our user's password data could figure out the key and very easily get everyone's password in our database with the right key to unencrypt all the data.
+    -- A solution is to use hashing which is only a one-way street and nearly impossible to reverse.
+
+3. What are the characteristics of a good hash function?
+    -- A good hash function --
+        1. Must be fast, since we will be doing it a lot.
+        2. Must be "deterministic" which just means that running the string through the hash function will return the same result so that people can verify their passwords.
+        3. Must be "inversion-resistant" which means it must be impossible to reverse.
+        4. Must be "collision-resistant" which means that each hash must be unique so that if someone figures out what my hash code is they can't purposefully or accidentally log into my account.
+
+4. What are the two basic, reusable functions that you will need to create in order to use password hashes and what do they do? (Refer to your "hashutils.py" file.)
+    -- make_pw_hash, which will take a string and put it through you're chosen hash algorithm.
+    -- check_pw_hash, which will take that hashed string and check it against your database to make sure that it's the right password.
+
+5. Describe what a "rainbow table" is, how it can be used by hackers, and what our solution to this vulnerability is.
+    -- A rainbow table is basically a list of hashes with their corressponding words (strings) and if people use general / common words and phrases (which is common), a hacker can obtain your hash and look through the rainbow table to find the corresponding common word.
+    -- Our solution is "salting" which basically means generating a random string of numbers and letters and attaching them to the hash somehow to mask the hashes so that hackers will have a harder time cracking them.
