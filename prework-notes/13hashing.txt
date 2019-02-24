@@ -108,3 +108,9 @@ REVIEW QUESTIONS --
 5. Describe what a "rainbow table" is, how it can be used by hackers, and what our solution to this vulnerability is.
     -- A rainbow table is basically a list of hashes with their corressponding words (strings) and if people use general / common words and phrases (which is common), a hacker can obtain your hash and look through the rainbow table to find the corresponding common word.
     -- Our solution is "salting" which basically means generating a random string of numbers and letters and attaching them to the hash somehow to mask the hashes so that hackers will have a harder time cracking them.
+
+CLASS NOTES --
+    -- uuid -- module that generates a random string
+    -- Last Pass (GIVE THIS TO DAD)
+    -- TO USE A SALT --
+         -- You must first add it before it gets hashed, then add it at the end again to make sure that you can recall it and verify it later. If you don't add the salt to the hash, then people who might compromise your system will figure out where it ends based on the very obvious delimiter that would be present in every single password. By putting it in before the hash, you will not know where the salt is in the sha256 to figure out how to unhash it.
